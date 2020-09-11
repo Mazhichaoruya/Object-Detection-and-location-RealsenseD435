@@ -29,5 +29,5 @@ Attention:Default parameter on line 228 in src/main.cpp<br>
 if you have IntelCore CPU you can chose "DNN_BACKEND_INFERENCE_ENGINE"to accelerate youe model--Openvino;<br>
 But you should make sure your CPU is Intel and the Contrib of Opencv has been installed.<br>
 ##Example
-![Exmple](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/C++/output.gif)   <br>
+![gif](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/C++/output.gif)   <br>
 The windows show the Classname and Position in Camera coordinate system of Objection
