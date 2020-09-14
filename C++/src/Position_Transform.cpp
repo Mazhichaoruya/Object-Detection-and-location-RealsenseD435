@@ -6,7 +6,8 @@
 Eigen::Vector3f Position_Transform::Depth_PixtoCamera(Eigen::Vector2f Pix_P) {
     Eigen::Vector3f Pix_3D ;
     Pix_3D<<Pix_P(0),Pix_P(1),1.00;
-    Depth_cam=Depth_inner.inverse()*Pix_3D*Depthmate.at<uint16_t>(Pix_P(0),Pix_P(1));
+    Depth_cam=Depth_inner.inverse()*Pix_3D*1.00;//Depthmate.at<uint16_t>(Pix_P(0),Pix_P(1))
+//    cout<<"origin"<<Depthmate.at<uint16_t>(Pix_P(0),Pix_P(1))<<endl;
     return  Depth_cam;
 }
 
@@ -21,7 +22,8 @@ void Position_Transform::get_camera_referance() {
 Eigen::Vector2f Position_Transform::Get_DepthToColorImg(Eigen::Vector3f Pix_P) {
     Color_cam = CD_Rotation * Pix_P + CD_Transation;
     Eigen::Vector3f Color_3 = Color_inner*Color_cam;
-    Depth_Pix_Transform<< (Color_3(0)/Color_cam(2)<639 ? Color_3(0)/Color_cam(2):639 ) ,(Color_3(1)/Color_cam(2)<479? Color_3(1)/Color_cam(2): 479);//限制坐标宽度不要越界
+//    cout<<"C3:"<<Color_3(2)<<endl;
+    Depth_Pix_Transform<< (Color_3(0)/Color_cam(2)<479 ? Color_3(0)/Color_cam(2):479 ) ,(Color_3(1)/Color_cam(2)<639? Color_3(1)/Color_cam(2): 639);//限制坐标宽度不要越界
     return Depth_Pix_Transform;
 }
 std::array<float, 3> Position_Transform::Report_PCL() {

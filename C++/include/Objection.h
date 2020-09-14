@@ -15,6 +15,7 @@ private:
 public:
     array<float,3> Point_Camera;
     bool Enable;
+    Mat labels,Stats,centroids;
     string Classname;
     Objection(Rect Box,string name);
     void CheckCenterPoint();

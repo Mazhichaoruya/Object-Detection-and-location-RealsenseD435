@@ -20,7 +20,7 @@ rs2::stream_profile dprofile;
 rs2::stream_profile cprofile;
 vector<string> classNamesVec;
 const auto window_name1 = "RGB Image";
-//const auto window_name2= "Depth Image";
+const auto window_name2= "Test Image";
 rs2::pipeline pipe;///生成Realsense管道，用来封装实际的相机设备
 String yolo_tiny_model ="/home/mzc/code/CLionProjects/DNN435/Yolo_model/yolov3.weights";
 String yolo_tiny_cfg =  "/home/mzc/code/CLionProjects/DNN435/Yolo_model/yolov3.cfg";
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     rs2::hole_filling_filter Hole_Filling_filter(2);//孔填充滤波器
     spat_filter.set_option(RS2_OPTION_FILTER_SMOOTH_ALPHA,0.55f);
     namedWindow(window_name1, WINDOW_AUTOSIZE);
-//    namedWindow(window_name2, WINDOW_AUTOSIZE);
+    namedWindow(window_name2, WINDOW_AUTOSIZE);
     ////////////////////////
     while (waitKey(1) != 27) {
         auto data = pipe.wait_for_frames();
@@ -69,18 +69,19 @@ int main(int argc, char** argv)
         Mat depth_mat(Size(640,480),
                         CV_16U,(void*)depth_frame.get_data(),Mat::AUTO_STEP);
         Depthmate = depth_mat;
+//        cout<<Depthmate.at<uint16_t>(64,64)<<endl;
 //        ColorMat=color_mat;
         Dec_mat = Dectection(color_mat);
-        for (auto objection:ObjectionOfOneMat) {
-            if (objection.Enable) {
-                cout << objection.Classname << ": ";
-                for (auto i:objection.Point_Camera)
-                    cout << i << " ";
-                cout << endl;
-            }
-        }
+//        for (auto objection:ObjectionOfOneMat) {
+//            if (objection.Enable) {
+//                cout << objection.Classname << ": ";
+//                for (auto i:objection.Point_Camera)
+//                    cout << i << " ";
+//                cout << endl;
+//            }
+//        }
         imshow(window_name1, Dec_mat);
-//        imshow(window_name2,Depthmate);
+        imshow(window_name2,Depthmate);
     }
 }
 Mat Dectection(Mat color_mat) {  //getWindowProperty(window_name, WND_PROP_AUTOSIZE) >= 0
