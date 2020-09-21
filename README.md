@@ -38,12 +38,15 @@ cmake ..
 make
 ./DNN_Yolo
 ```
-Attention:Default parameter on line 228 in src/main.cpp   
+Attention:Default parameter on line 243 and 244 in src/main.cpp   
 ```cpp
-    net.setPreferableBackend(DNN_BACKEND_OPENCV);// DNN_BACKEND_INFERENCE_ENGINE 
+    net.setPreferableBackend(DNN_BACKEND_OPENCV);// DNN_BACKEND_INFERENCE_ENGINE DNN_BACKEND_CUDA
+    net.setPreferableTarget(DNN_TARGET_CPU);//DNN_TARGET_CUDA
 ```
 if you have IntelCore CPU you can chose "DNN_BACKEND_INFERENCE_ENGINE"to accelerate youe model--Openvino;<br>
-But you should make sure your CPU is Intel and the Contrib of Opencv has been installed.
+But you should make sure your CPU is Intel and the Contrib of Opencv has been installed.  
+If you have GPU(From Nvidia),You can Think about The Cuda acceleration.Before this you should reinstall Your Opencv(Version Most>4.2) with This:[OpenCV_DNN](https://medium.com/@sb.jaduniv/how-to-install-opencv-4-2-0-with-cuda-10-1-on-ubuntu-20-04-lts-focal-fossa-bdc034109df3)  
+Open the Cuda Setting when CMake.
 ## Python
 When you install the essential job ,just run the main.py,the model will start to work.
 ```
@@ -52,11 +55,18 @@ python3 main.py
 ```
 ## Example
 Old_version:  
-![gif](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/blob/master/Gif/C%2B%2B.gif)  
+![Old_version](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/blob/master/Gif/Old_version.gif)  
 The windows show the Classname and Position in Camera coordinate system of Objection  
-
+New version on 9-21:
+RGBD and Center position:  
+![RGBD](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/blob/master/Gif/RGBD.gif)
+Point Cloud of Objections: 
+![PointCloud](https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435/blob/master/Gif/PointCloud.gif) 
 
 ## To be continue
-I will continue to slove the problems of loss targets' depth information when one Box have two or more targets  
-Find some faster Models of Objection and Try to use cuda acceleration   
+//I will continue to slove the problems of loss targets' depth information when one Box have two or more targets  
+//Had Been Sloved;  
+Find some faster Models of Objection  
+About Cuda Accelerate ,This Blog Front. 
+For C++ Version Just change two parameters On on line 243,245 in src/main.cpp 
 Take it to rospack and run it on ROS robot with slam
