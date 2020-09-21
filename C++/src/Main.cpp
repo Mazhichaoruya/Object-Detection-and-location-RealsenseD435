@@ -1,8 +1,13 @@
 #include "../include/include.h"
+#include "../include/Visualizer.h"
+#include "time.h"
+//#include "pcl/io/pcd_io.h"
+//#include "pcl/visualization/pcl_visualizer.h"
 using namespace std;
-using namespace cv;
+//using namespace cv;
 using namespace cv::dnn;
 using namespace rs2;
+//using namespace mlpack;
 const size_t inWidth      = 416;
 const size_t inHeight     = 416;
 const float WHRatio       = inWidth / (float)inHeight;
@@ -21,7 +26,7 @@ rs2::stream_profile cprofile;
 vector<string> classNamesVec;
 const auto window_name1 = "RGB Image";
 const auto window_name2= "Test Image";
-rs2::pipeline pipe;///生成Realsense管道，用来封装实际的相机设备
+rs2::pipeline pipes;///生成Realsense管道，用来封装实际的相机设备
 String yolo_tiny_model ="/home/mzc/code/CLionProjects/DNN435/Yolo_model/yolov3.weights";
 String yolo_tiny_cfg =  "/home/mzc/code/CLionProjects/DNN435/Yolo_model/yolov3.cfg";
 String classname_path="/home/mzc/code/CLionProjects/DNN435/Yolo_model/object_detection_classes_yolov3.txt";
@@ -33,7 +38,7 @@ int main(int argc, char** argv)
 //    set_d435();//相机深度图与彩色图配准
     image_detection_Cfg();//二维目标检测Yolov3初始化
 //////////////////////////////////////
-    auto config =pipe.start();
+    auto config =pipes.start();
     auto profile = config.get_stream(RS2_STREAM_COLOR)
             .as<video_stream_profile>();
     rs2::align align_to(RS2_STREAM_COLOR);
@@ -54,9 +59,13 @@ int main(int argc, char** argv)
     spat_filter.set_option(RS2_OPTION_FILTER_SMOOTH_ALPHA,0.55f);
     namedWindow(window_name1, WINDOW_AUTOSIZE);
     namedWindow(window_name2, WINDOW_AUTOSIZE);
+    dlib::perspective_window Win_3D;//3D显示窗口
+    Win_3D.set_title("ALL Objection 3D Point Cloud");
+    ///////////////
+
     ////////////////////////
     while (waitKey(1) != 27) {
-        auto data = pipe.wait_for_frames();
+        auto data = pipes.wait_for_frames();
         // Make sure the frames are spatially aligned
         data = align_to.process(data);
 
@@ -69,9 +78,9 @@ int main(int argc, char** argv)
         Mat depth_mat(Size(640,480),
                         CV_16U,(void*)depth_frame.get_data(),Mat::AUTO_STEP);
         Depthmate = depth_mat;
-//        cout<<Depthmate.at<uint16_t>(64,64)<<endl;
-//        ColorMat=color_mat;
+//        Win_3D.clear_overlay();//清除原有点云信息
         Dec_mat = Dectection(color_mat);
+        Win_3D.add_overlay(Visualizer{ObjectionOfOneMat}.Report_PCLOneMat());//画出点云
 //        for (auto objection:ObjectionOfOneMat) {
 //            if (objection.Enable) {
 //                cout << objection.Classname << ": ";
@@ -82,6 +91,10 @@ int main(int argc, char** argv)
 //        }
         imshow(window_name1, Dec_mat);
         imshow(window_name2,Depthmate);
+        if(cv::waitKey(1)==32) {//空格
+            Win_3D.wait_until_closed();//暂停
+        }
+//        Win_3D.show();
     }
 }
 Mat Dectection(Mat color_mat) {  //getWindowProperty(window_name, WND_PROP_AUTOSIZE) >= 0
@@ -129,8 +142,9 @@ Mat Dectection(Mat color_mat) {  //getWindowProperty(window_name, WND_PROP_AUTOS
     for (size_t i = 0; i < indices.size(); ++i) {
         int idx = indices[i];
         Rect box = boxes[idx];
+        auto ClassID=classIds[idx];
         String className = classNamesVec[classIds[idx]];
-        Objection NewObjection(box,className);
+        Objection NewObjection(box,ClassID);
         ObjectionOfOneMat.push_back(NewObjection);
         putText(color_mat, className.c_str(), box.tl(), FONT_HERSHEY_SIMPLEX, 1.0, Scalar(255, 0, 0), 2, 8);
         rectangle(color_mat, box, Scalar(0, 0, 255), 2, 8, 0);
@@ -164,10 +178,10 @@ int Realsense_config(){
     ///配置深度图像流：分辨率640*480，图像格式：Z16， 帧率：30帧/秒
     cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
 
-    pipe.start(cfg); ///根据给定的配置启动相机管道
+    pipes.start(cfg); ///根据给定的配置启动相机管道
 
     rs2::frameset data;
-    data = pipe.wait_for_frames();///等待一帧数据，默认等待5s
+    data = pipes.wait_for_frames();///等待一帧数据，默认等待5s
 
     rs2::depth_frame depth       = data.get_depth_frame(); ///获取深度图像数据
     rs2::video_frame color       = data.get_color_frame();  ///获取彩色图像数据
@@ -220,13 +234,13 @@ int Get_referance() //try
     for(int i=0;i<3;i++)
         std::cout<<V_T(i)<<"\t";
     std::cout<<std::endl;
-    pipe.stop();
+    pipes.stop();
 
     return EXIT_SUCCESS;
 }
 void image_detection_Cfg() {
     net = readNetFromDarknet(yolo_tiny_cfg, yolo_tiny_model);
-    net.setPreferableBackend(DNN_BACKEND_OPENCV);// DNN_BACKEND_INFERENCE_ENGINE 未安装IE库 if you have IntelCore CPU you can chose this Para to accelerate youe model--Openvino;
+    net.setPreferableBackend(DNN_BACKEND_OPENCV);// DNN_BACKEND_INFERENCE_ENGINE DNN_BACKEND_OPENCV 未安装IE库 if you have IntelCore CPU you can chose this Para to accelerate youe model--Openvino;
     net.setPreferableTarget(DNN_TARGET_CPU);
     outNames = net.getUnconnectedOutLayersNames();
     for (int i = 0; i < outNames.size(); i++) {

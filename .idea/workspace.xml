@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2b05e6f3-1a63-4f59-a6fb-ff499cc718c1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/C++/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/C++/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/include/Objection.h" beforeDir="false" afterPath="$PROJECT_DIR$/C++/include/Objection.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/include/Position_Transform.h" beforeDir="false" afterPath="$PROJECT_DIR$/C++/include/Position_Transform.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/include/include.h" beforeDir="false" afterPath="$PROJECT_DIR$/C++/include/include.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/src/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/C++/src/Main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/src/Objection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/C++/src/Objection.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/C++/src/Position_Transform.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/C++/src/Position_Transform.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gif/C++.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/Position_transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/Position_transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1hp31Rn2Qcw1NfUSfPT8VTfeMJ4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2b05e6f3-1a63-4f59-a6fb-ff499cc718c1" name="Default Changelist" comment="" />
+      <created>1600693990993</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600693990993</updated>
+      <workItem from="1600693992066" duration="444000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

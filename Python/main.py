@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # load ObjectionDectection model
     net = cv2.dnn.readNetFromDarknet(model_cfg, model_weight)
     # set back-end
-    net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
+    net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)#DNN_BACKEND_INFERENCE_ENGINE  on Openvino
     net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
     while True:
         Objection_vec=[]
