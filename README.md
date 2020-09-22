@@ -10,7 +10,8 @@ Cmake>= 3.17
 PCL lib>=1.7.1  
 [Intel Realsense SDK >=2.0 ](https://github.com/IntelRealSense/librealsense.git)  
 [Yolov3 by Darknet](https://pjreddie.com/darknet/yolo/)    
-Dlib #I had pushed on this Github repository on :Objection-Detection-and-location-RealsenseD435/C++/dlib
+[Dlib](http://dlib.net/) #I had pushed on this Github repository on :Objection-Detection-and-location-RealsenseD435/C++/dlib.zip,uzip it on this Path.
+You can DownLoad the lastest version too.
 ### Python Version
 pyrealsense2.x  
 Opencv-python   
@@ -22,6 +23,7 @@ with same as C++ version,the SDK of realsense D435 must have been installed
 git clone https://github.com/Mazhichaoruya/Objection-Detection-and-location-RealsenseD435.git
 cd  Objection-Detection-and-location-RealsenseD435/Yolo_model
 wget https://pjreddie.com/media/files/yolov3.weights ;wget https://pjreddie.com/media/files/yolov3-tiny.weights
+cd Objection-Detection-and-location-RealsenseD435/C++/;uzip dlib.zip
 ```
 For avoiding unreasonable troubles,I used the absolute path,so you have to change the path in src/main.cpp   
 on line 25-27
