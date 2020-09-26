@@ -33,6 +33,7 @@ String classname_path="/home/mzc/code/CLionProjects/DNN435/Yolo_model/object_det
 vector<Objection> ObjectionOfOneMat;//一幅图中的目标
 int main(int argc, char** argv)
 {
+    rs2::colorizer color_map;
     Realsense_config();//相机初始化
     Get_referance();//获取相机内参 和外参
 //    set_d435();//相机深度图与彩色图配准
@@ -55,7 +56,8 @@ int main(int argc, char** argv)
     }
     // Declare filters
     rs2::spatial_filter spat_filter;
-    rs2::hole_filling_filter Hole_Filling_filter(2);//孔填充滤波器
+    rs2::hole_filling_filter Hole_Filling_filter(1);//孔填充滤波器
+    rs2::decimation_filter decimationFilter;
     spat_filter.set_option(RS2_OPTION_FILTER_SMOOTH_ALPHA,0.55f);
     namedWindow(window_name1, WINDOW_AUTOSIZE);
     namedWindow(window_name2, WINDOW_AUTOSIZE);
@@ -70,17 +72,23 @@ int main(int argc, char** argv)
         data = align_to.process(data);
 
         auto color_frame = data.get_color_frame();
-        auto depth_frame = data.get_depth_frame();
-        depth_frame=Hole_Filling_filter.process(depth_frame);
+        auto depth_frame = data.get_depth_frame();//.apply_filter(color_map)
+//        depth_frame=decimationFilter.process(depth_frame);
 //        depth_frame=spat_filter.process(depth_frame);
+        depth_frame=Hole_Filling_filter.process(depth_frame);
         // Convert RealSense frame to OpenCV matrix:
         color_mat = frame_to_mat(color_frame);
         Mat depth_mat(Size(640,480),
                         CV_16U,(void*)depth_frame.get_data(),Mat::AUTO_STEP);
+//        Mat Depthshow(Size(640,480),
+//                      CV_8UC3,(void*)depth_frame.get_data(),Mat::AUTO_STEP);
         Depthmate = depth_mat;
-//        Win_3D.clear_overlay();//清除原有点云信息
+        Win_3D.clear_overlay();//清除原有点云信息
+        ObjectionOfOneMat.clear();//清空上一幅图像的目标
         Dec_mat = Dectection(color_mat);
         Win_3D.add_overlay(Visualizer{ObjectionOfOneMat}.Report_PCLOneMat());//画出点云
+
+
 //        for (auto objection:ObjectionOfOneMat) {
 //            if (objection.Enable) {
 //                cout << objection.Classname << ": ";
