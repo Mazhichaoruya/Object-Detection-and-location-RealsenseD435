@@ -1,6 +1,7 @@
 # Object-Detection-and-location-RealsenseD435
 I just Update the C++ Version this time,Python Version will be updated when I have free time.maybe next week.
 ## ROS version [ROS-Object-Detection-2Dto3D-RealsenseD435](https://github.com/Mazhichaoruya/ROS-Object-Detection-2Dto3D-RealsenseD435.git)
+## Object Dection with SLAM ,With SLAM(SC-Lego-LOAM)  :[Perception-of-Autonomous-mobile-robot](https://github.com/Mazhichaoruya/Perception-of-Autonomous-mobile-robot)
 ## Requirements
 ### C++ Version
 Ubuntu18.04 OR 16.04  
@@ -65,8 +66,5 @@ RGBD and Center position:
 ![RGBD](https://github.com/Mazhichaoruya/Object-Detection-and-location-RealsenseD435/blob/master/Gif/RGBD.gif)
 Point Cloud of Objects: 
 ![PointCloud](https://github.com/Mazhichaoruya/Object-Detection-and-location-RealsenseD435/blob/master/Gif/PointCloud.gif) 
-## To be continue
-Find some faster Models of Object  
-About Cuda Accelerate ,This Blog Front. 
-For C++ Version Just change two parameters On on line 251,252 in src/main.cpp 
-Take it to rospack and run it on ROS robot with slam
+## Next
+The ROS and SLAM version had been uploaded,But it is just a Beginning,I will do more jod form my Graduation Project，if you were Interested in this, welcome to follow me！
