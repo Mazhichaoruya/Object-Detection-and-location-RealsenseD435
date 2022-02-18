@@ -4,9 +4,9 @@ import realsenseconfig as rs_config  # Initalize - Parameter
 import cv2
 import  numpy as np
 from Objection import Objection,Rcet
-model_weight = "./dataset/yolov3-320.weights"
-model_cfg = "./dataset/yolov3-320.cfg"
-model_classname="./dataset/coco.names"
+model_weight = "../dataset/yolov3-320.weights"
+model_cfg = "../dataset/yolov3-320.cfg"
+model_classname="../dataset/coco.names"
 def Dectection(net,image):
     color=image
     h, w = image.shape[:2]
